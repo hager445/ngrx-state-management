@@ -1,0 +1,107 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "role": "Admin",
+      "password": "admin123",
+      "createdAt": "2025-01-01"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "role": "User",
+      "password": "user123",
+      "createdAt": "2025-01-02"
+    },
+    {
+      "id": "3",
+      "name": "Alice Cooper",
+      "email": "alice.cooper@example.com",
+      "role": "Admin",
+      "password": "admin123",
+      "createdAt": "2025-01-03"
+    },
+    {
+      "id": "4",
+      "name": "Bob Brown",
+      "email": "bob.brown@example.com",
+      "role": "User",
+      "password": "user123",
+      "createdAt": "2025-01-04"
+    },
+    {
+      "id": "5b46",
+      "name": "hager mostafa ali",
+      "email": "ho444@gmail.com",
+      "password": "Hagora@123",
+      "role": "admin",
+      "createdAt": "2025-04-28"
+    },
+    {
+      "id": "840d",
+      "name": "hager mostafa ali",
+      "email": "hagoraaaaaaaaaa@gmail.com",
+      "password": "Hagora@1234",
+      "role": null,
+      "createdAt": "2025-04-10"
+    },
+    {
+      "id": "d993",
+      "name": "hager mostafa ali",
+      "email": "hagoraaaaaaaaaa@gmail.com",
+      "password": "Hagora@1234",
+      "role": "admin",
+      "createdAt": "2025-04-10"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "1",
+      "message": "New user registered",
+      "type": "success",
+      "createdAt": "2025-01-01"
+    },
+    {
+      "id": "2",
+      "message": "System error occurred",
+      "type": "error",
+      "createdAt": "2025-01-02"
+    },
+    {
+      "id": "3",
+      "message": "Scheduled maintenance at 2 AM",
+      "type": "info",
+      "createdAt": "2025-01-03"
+    },
+    {
+      "id": "4",
+      "message": "New feature released",
+      "type": "success",
+      "createdAt": "2025-01-04"
+    }
+  ],
+  "analytics": {
+    "liveVisits": 1200,
+    "visitHistory": [
+      {
+        "timestamp": "2025-01-01T00:00:00Z",
+        "visits": 100
+      },
+      {
+        "timestamp": "2025-01-02T00:00:00Z",
+        "visits": 150
+      },
+      {
+        "timestamp": "2025-01-03T00:00:00Z",
+        "visits": 200
+      },
+      {
+        "timestamp": "2025-01-04T00:00:00Z",
+        "visits": 250
+      }
+    ]
+  }
+}

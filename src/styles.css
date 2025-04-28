@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+@layer base {
+  .bg-darks {
+    @apply bg-gradient-to-b from-[#111827] to-[#1F2937];
+  }
+}
+body {
+  background: linear-gradient(to bottom, #111827, #1f2937);
+  min-height: 100vh;
+  padding: 50px 0;
+}

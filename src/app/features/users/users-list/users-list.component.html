@@ -1,0 +1,110 @@
+<section class="search-filter my-14">
+  <form class="max-w-md mx-auto">
+    <div class="flex">
+      <select
+        [(ngModel)]="filterValue"
+        (ngModelChange)="onFilterBy()"
+        name="filter"
+        class="cursor-pointer py-2.5 ps-5 pe-10 text-sm text-gray-900 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:focus:ring-0"
+      >
+        <option value="Filter By" class="" disabled>Filter By</option>
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+      </select>
+
+      <div class="relative w-full">
+        <input
+          #searchInput
+          name="searchValue"
+          [(ngModel)]="searchValue"
+          (ngModelChange)="onSearchChange()"
+          id="location-search"
+          class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 dark:bg-gray-700 dark:border-s-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-0 dark:focus:ring-gray-500"
+          placeholder="Search for Admin or User"
+          required
+        />
+        <button
+          type="submit"
+          class="cursor-pointer absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-transparent rounded-e-lg focus:outline-none focus:ring-0 dark:bg-transparent dark:hover:bg-gray-500 dark:focus:ring-0"
+        >
+          <svg
+            class="w-4 h-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+          <span class="sr-only">Search</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</section>
+<!-- =======================================================add btn -->
+<div class="max-w-3xl mx-auto text-center mb-8">
+  <button
+    data-modal-target="crud-modal"
+    data-modal-toggle="crud-modal"
+    type="button"
+    class="cursor-pointer text-white bg-[#050708]/30 hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-[13px] px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 me-2 mb-2"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="30"
+      height="30"
+      viewBox="0 0 24 24"
+      class="pe-2"
+    >
+      <path
+        fill="currentColor"
+        d="m21.1 12.5l1.4 1.41l-6.53 6.59L12.5 17l1.4-1.41l2.07 2.08zM10 17l3 3H3v-2c0-2.21 3.58-4 8-4l1.89.11zm1-13a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4"
+      />
+    </svg>
+    Add New User!
+  </button>
+</div>
+<section><app-users-form></app-users-form></section>
+<!-- ============================================= -->
+<section class="show-users">
+  <cdk-virtual-scroll-viewport itemSize="50" class="h-[500px] overflow-auto">
+    <div class="relative overflow-x-auto">
+      <table
+        class="w-4xl mx-auto text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      >
+        <thead
+          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-3">Name</th>
+            <th scope="col" class="px-6 py-3">Email</th>
+            <th scope="col" class="px-6 py-3">Role</th>
+            <th scope="col" class="px-6 py-3">Created At</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <ng-container *cdkVirtualFor="let user of users$ | async">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <td
+                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+              >
+                {{ user.name }}
+              </td>
+              <td class="px-6 py-4">{{ user.email }}</td>
+              <td class="px-6 py-4">{{ user.role }}</td>
+              <td class="px-6 py-4">{{ user.createdAt }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </cdk-virtual-scroll-viewport>
+</section>
