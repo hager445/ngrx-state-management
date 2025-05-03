@@ -13,3 +13,21 @@ body {
   min-height: 100vh;
   padding: 50px 0;
 }
+.bg-success {
+  background-color: #111827;
+  border: 2px solid #161d2c;
+
+  box-shadow: 0 4px 8px #44485066; /*  shadow */
+}
+.bg-warning {
+  background-color: #f8df21;
+  border: 2px solid #f9efa6;
+  color: #111827;
+  box-shadow: 0 0 10px #f3d60088, /* outer glow */ 0 4px 6px #f3d60044;
+}
+.bg-error {
+  background-color: #b40000;
+  border: 2px solid #bb1e1e;
+
+  box-shadow: 0 0 12px #b4000088, /* red glow */ 0 4px 8px #b4000044;
+}

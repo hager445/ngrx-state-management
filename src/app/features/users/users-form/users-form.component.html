@@ -1,25 +1,24 @@
-<div
-  data-modal-backdrop="static"
-  id="crud-modal"
-  tabindex="-1"
-  #modal
-  aria-hidden="true"
-  class="hidden overflow-y-auto overflow-x-hidden fixed top-[0%] right-0 left-[0%] z-50 w-full md:inset-0 max-h-[100vh]"
+<section
+  appFormModal
+  class="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.7)] z-50"
 >
-  <div class="relative p-4 w-full max-w-md max-h-full">
-    <!-- Modal content -->
-    <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+  <div
+    class="min-w-2xl mx-auto mt-0 p-6 rounded-2xl border border-gray-700 bg-gray-800 shadow-lg shadow-gray-900/50"
+  >
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+
       <!-- Modal header -->
       <div
         class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200"
       >
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-          Create New User!
+          {{ !isUpdateMode ? "Create New User!" : "Update User!" }}
         </h3>
         <button
+          (click)="closeModal()"
           type="button"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-          data-modal-toggle="crud-modal"
         >
           <svg
             class="w-3 h-3"
@@ -41,13 +40,13 @@
       </div>
       <!-- Modal body -->
       <form
-        [formGroup]="updateUser"
+        [formGroup]="formG"
         class="p-4 md:p-5"
         (ngSubmit)="registerSubmition()"
       >
         <div class="grid gap-4 mb-4 grid-cols-2">
           <div class="col-span-2">
-            @let name =updateUser.get('name');
+            @let name =formG.get('name');
             <label
               for="name"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -108,7 +107,7 @@
           </div>
           <!-- ============================== email -->
           <div class="col-span-2">
-            @let email = updateUser.get('email');
+            @let email = formG.get('email');
             <label
               for="email"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -138,7 +137,7 @@
                   format.
                 </p>
               </div>
-              } @else if (email?.errors?.['emailTaken']) {
+              } @else if (email?.errors?.['existEmail']) {
               <div>
                 <p class="mt-2 text-xs text-red-600 dark:text-red-400">
                   <span class="font-medium">Oh, snapp!</span> This Email has
@@ -152,7 +151,7 @@
 
           <!-- ================================== password -->
           <div class="col-span-2">
-            @let password = updateUser.get('password');
+            @let password = formG.get('password');
 
             <label
               for="password"
@@ -191,7 +190,7 @@
           </div>
           <!-- ======================================role -->
           <div class="col-span-2 sm:col-span-1">
-            @let role = updateUser.get('role');
+            @let role = formG.get('role');
 
             <label
               for="role"
@@ -203,7 +202,10 @@
               formControlName="role"
               class="bg-gray-50 border focus:ring-0 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
             >
-              <option selected>select a role</option>
+              select
+              <option value="select a role" disabled selected>
+                select a role
+              </option>
               <option value="admin">Admin</option>
               <option value="user">User</option>
             </select>
@@ -224,8 +226,11 @@
             }
           </div>
         </div>
+        @if (!isUpdateMode) {
+
         <button
           type="submit"
+          [disabled]="formG.invalid"
           class="text-white inline-flex items-center dark:bg-gray-800 dark:hover:bg-gray-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         >
           <svg
@@ -240,9 +245,30 @@
               clip-rule="evenodd"
             ></path>
           </svg>
-          Add new User
+          Add new User!
         </button>
-        @if (messageError !== '') {
+        }@else {
+
+        <button
+          type="button"
+          (click)="updateUserForm()"
+          class="text-white inline-flex items-center dark:bg-amber-500 dark:hover:bg-yellow-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        >
+          <svg
+            class="me-1 -ms-1 w-5 h-5"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          Update User
+        </button>
+        } @if (messageError) {
         <div>
           <p class="mt-2 text-xs text-red-600 dark:text-red-400">
             <span class="font-medium">{{ messageError }}</span>
@@ -252,4 +278,4 @@
       </form>
     </div>
   </div>
-</div>
+</section>

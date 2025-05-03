@@ -7,32 +7,58 @@ import { LiveCounterComponent } from './features/dashboard/live-counter/live-cou
 import { ChartComponent } from './features/dashboard/chart/chart.component';
 import { ToastContainerComponent } from './features/notifications/toast-container/toast-container.component';
 import { NotificationPanelComponent } from './features/notifications/notification-panel/notification-panel.component';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
 
+  // ✅ Layout خاص بالـ Auth (Login, Register)
   {
-    path: 'users',
-    loadComponent: () => import('./features/users/users-list/users-list.component').then(c => c.UsersListComponent)
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login',
   },
+      {
+path:'',
+loadComponent:()=> import('./layouts/authantication/authantication.component').then(c=>c.AuthanticationComponent)
+, children:[{
+  path: 'login',
+  loadComponent: () => import('./layouts/auth/auth.component').then(c => c.AuthComponent),
+
+},
+{
+  path: 'register',
+  loadComponent: () => import('./features/users/users-form/users-form.component').then(c => c.UsersFormComponent),
+
+},
+]
+      }
+    ,
+    
+
+
+  // ✅ Layout خاص بالـ Main App (Dashboard, Users, Notifications)
   {
-    path: 'users/create',
-    loadComponent: () => import('./features/users/users-form/users-form.component').then(c => c.UsersFormComponent)
+    path: '',
+    loadComponent: () => import('./layouts/main-layout/main-layout.component').then(m => m.MainLayoutComponent),
+    canActivate: [authGuard],
+     // ✅ حراسة على كل الابن routes
+    children: [
+      {
+        path: 'dashboard',
+        loadComponent: () => import('./features/dashboard/dashboard-shell/dashboard-shell.component').then(c => c.DashboardShellComponent)
+      },
+      {
+        path: 'users',
+        loadComponent: () => import('./features/users/users-list/users-list.component').then(c => c.UsersListComponent)
+      },
+      {
+        path: 'notifications',
+        loadComponent: () => import('./features/notifications/toast-container/toast-container.component').then(c => c.ToastContainerComponent)
+      },
+     
+    ]
   },
-  {
-    path: 'users/:id',
-    loadComponent: () => import('./features/users/users-form/users-form.component').then(c => c.UsersFormComponent)
-  },
-  {
-    path: 'dashboard',
-    loadComponent: () => import('./features/dashboard/dashboard-shell/dashboard-shell.component').then(c => c.DashboardShellComponent)
-  },
-  {
-    path: 'notifications',
-    loadComponent: () => import('./features/notifications/toast-container/toast-container.component').then(c => c.ToastContainerComponent)
-  },
-  {
-    path: 'notifications/settings',
-    loadComponent: () => import('./features/notifications/notification-panel/notification-panel.component').then(c => c.NotificationPanelComponent)
-  },
-  { path: '', redirectTo: '/users', pathMatch: 'full' }
+
+  // ✅ أي Route غلط
+  { path: '**', redirectTo: '' }
 ];

@@ -7,13 +7,20 @@ const config: Config = {
   ],
   theme: {
     extend: {  animation: {
-      'slide-in': 'slideIn 0.5s ease-out forwards', // تعريف الأنيميشن
+      'fade-out': 'fadeOut 0.5s ease-out forwards', // تعريف الأنيميشن
+      'fade-in': 'fadeIn 0.5s ease-out forwards', // تعريف الأنيميشن
     },
     keyframes: {
-      slideIn: {
+    
+      fadeIn: {
         '0%': { transform: 'scale(0)', opacity: '0' },
         '100%': { transform: 'scale(1)', opacity: '1' },
       },
+      fadeOut: {
+        '0%': { transform: 'scale(1)', opacity: '1' },
+        '100%': { transform: 'scale(0)', opacity: '0' },
+      },
+     
     },},
   },
   plugins: [

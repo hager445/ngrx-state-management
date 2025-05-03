@@ -1,60 +1,12 @@
 {
   "users": [
     {
-      "id": "1",
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "role": "Admin",
-      "password": "admin123",
-      "createdAt": "2025-01-01"
-    },
-    {
-      "id": "2",
-      "name": "Jane Smith",
-      "email": "jane.smith@example.com",
-      "role": "User",
-      "password": "user123",
-      "createdAt": "2025-01-02"
-    },
-    {
-      "id": "3",
-      "name": "Alice Cooper",
-      "email": "alice.cooper@example.com",
-      "role": "Admin",
-      "password": "admin123",
-      "createdAt": "2025-01-03"
-    },
-    {
-      "id": "4",
-      "name": "Bob Brown",
-      "email": "bob.brown@example.com",
-      "role": "User",
-      "password": "user123",
-      "createdAt": "2025-01-04"
-    },
-    {
-      "id": "5b46",
-      "name": "hager mostafa ali",
-      "email": "ho444@gmail.com",
+      "name": "samer mohamed",
+      "email": "ho44477@gmail.com",
       "password": "Hagora@123",
-      "role": "admin",
-      "createdAt": "2025-04-28"
-    },
-    {
-      "id": "840d",
-      "name": "hager mostafa ali",
-      "email": "hagoraaaaaaaaaa@gmail.com",
-      "password": "Hagora@1234",
-      "role": null,
-      "createdAt": "2025-04-10"
-    },
-    {
-      "id": "d993",
-      "name": "hager mostafa ali",
-      "email": "hagoraaaaaaaaaa@gmail.com",
-      "password": "Hagora@1234",
-      "role": "admin",
-      "createdAt": "2025-04-10"
+      "role": "user",
+      "createdAt": "2025-05-13",
+      "id": "de2b"
     }
   ],
   "notifications": [

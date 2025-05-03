@@ -1,1 +1,84 @@
-<p>toast-container works!</p>
+<!-- <button (click)="showNotifications()" class="bg-amber-500">نجاح ✅</button> -->
+<section class="py-14">
+  <div class="flex justify-between items-center">
+    <div>
+      <button
+        type="button"
+        (click)="clearAll()"
+        class="cursor-pointer text-gray-900 mb-12 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+      >
+        Clear All Notifications!
+      </button>
+      <button
+        type="button"
+        (click)="chageSelectionState()"
+        (click)="$event.stopPropagation()"
+        class="cursor-pointer text-gray-900 mb-12 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+      >
+        Select Notifications!
+      </button>
+    </div>
+    @if (select()) {
+
+    <button
+      type="button"
+      (click)="deleteSelected()"
+      (click)="$event.stopPropagation()"
+      class="focus:outline-none text-white border border-red-300 bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+    >
+      Delet selected
+    </button>
+    }
+  </div>
+  <div
+    class="w-[90%] mx-auto"
+    appOutsideclickdirective
+    (clickOutside)="deleteNotifi(0)"
+  >
+    @for (notifi of notifications(); track notifi.id) {
+
+    <div
+      id="toast-top-left"
+      class="notification relative mt-2 flex justify-between items-center w-full max-w-lg py-2 px-3 space-x-4 text-gray-100 bg-white divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg top-[50%] left-[50%] translate-[-50%] dark:text-gray-100 dark:divide-gray-700 dark:bg-gray-800"
+      role="alert"
+      [ngClass]="{
+        'bg-success': notifi.type === 0,
+        'bg-warning': notifi.type === 1,
+        'bg-error': notifi.type === 2
+      }"
+    >
+      <div class="text-sm font-normal">
+        @if (select()) {
+        <div class="inline-flex items-center me-4">
+          <input
+            id="inline-checkbox"
+            type="checkbox"
+            [checked]="notifi.selected"
+            (change)="onCheckboxChange($event, notifi)"
+            class="w-4 h-4 text-gray-950 bg-gray-100 border-gray-300 rounded-sm focus:ring-gray-900 dark:focus:ring-gray-900 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            for="inline-checkbox"
+            class="ms-2 text-[12px] text-white font-medium dark:text-gray-300"
+            >select! {{ $index + 1 }}</label
+          >
+        </div>
+        }
+        <p>{{ notifi.message }}.</p>
+      </div>
+      <span class="cursor-pointer" (click)="deleteNotifi($index)"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="25"
+          height="25"
+          viewBox="0 0 24 24"
+        >
+          <path
+            fill="#fff"
+            d="M7.378 5.531a2.75 2.75 0 0 1 1.92-.781h10.297c.598 0 1.294.166 1.863.519c.579.358 1.11.974 1.11 1.856v9.75c0 .882-.531 1.497-1.11 1.856a3.65 3.65 0 0 1-1.863.519H9.298a2.75 2.75 0 0 1-1.92-.781l-5.35-5.216a1.75 1.75 0 0 1 0-2.506zM14.03 9.47a.75.75 0 1 0-1.06 1.06L14.44 12l-1.47 1.47a.75.75 0 1 0 1.06 1.06l1.47-1.47l1.47 1.47a.75.75 0 1 0 1.06-1.06L16.56 12l1.47-1.47a.75.75 0 1 0-1.06-1.06l-1.47 1.47z"
+          /></svg
+      ></span>
+    </div>
+    }
+  </div>
+</section>

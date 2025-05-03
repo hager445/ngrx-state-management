@@ -1,0 +1,113 @@
+<section
+  class="max-w-lg mx-auto mt-10 p-6 rounded-2xl border border-gray-700 bg-gray-800 shadow-lg shadow-gray-900/50"
+>
+  <form
+    [formGroup]="loginUser"
+    class="p-4 md:p-5"
+    (ngSubmit)="loginSubmition()"
+  >
+    <div class="grid gap-4 mb-4 grid-cols-2">
+      <!-- ============================== email -->
+      <div class="col-span-2">
+        @let email = loginUser.get('email');
+        <label
+          for="email"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Email</label
+        >
+        <input
+          formControlName="email"
+          type="email"
+          name="email"
+          id="email"
+          class="bg-gray-50 border focus:ring-0 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          placeholder="Type user email"
+        />
+        @if (email?.touched && email?.invalid) {
+        <div>
+          @if (email?.errors?.['required']) {
+          <div>
+            <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+              <span class="font-medium">Oh, snapp!</span> This field is
+              required.
+            </p>
+          </div>
+          } @else if (email?.errors?.['email']) {
+          <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+            Please enter a valid email address.
+          </p>
+          }
+        </div>
+        }
+      </div>
+
+      <!-- ================================== password -->
+      <div class="col-span-2">
+        @let password = loginUser.get('password');
+
+        <label
+          for="password"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          >Password</label
+        >
+        <input
+          formControlName="password"
+          type="password"
+          name="password"
+          id="password"
+          class="bg-gray-50 border focus:ring-0 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+          placeholder="Type user password"
+        />
+        @if (password?.touched && password?.invalid) {
+        <div>
+          @if (password?.errors?.['required']) {
+          <div>
+            <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+              <span class="font-medium">Oh, snapp!</span> This field is
+              required.
+            </p>
+          </div>
+          }
+        </div>
+
+        }
+      </div>
+    </div>
+    <div class="flex items-center">
+      <button
+        type="submit"
+        [disabled]="loginUser.invalid"
+        class="text-white inline-flex items-center dark:bg-gray-800 dark:hover:bg-gray-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+      >
+        <svg
+          class="me-1 -ms-1 w-5 h-5"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        Login User!
+      </button>
+      <span class="text-[13px] text-gray-300">
+        Don't have an account?
+        <a
+          routerLink="/register"
+          class="cursor-pointer text-blue-400 hover:underline hover:text-blue-300"
+          >Register!</a
+        >
+      </span>
+    </div>
+    @if (messageError) {
+    <div>
+      <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+        <span class="font-medium">{{ messageError }}</span>
+      </p>
+    </div>
+    }
+  </form>
+</section>
