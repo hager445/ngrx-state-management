@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Color, NgxChartsModule, ScaleType } from '@swimlane/ngx-charts';
-import { interval, map, Observable, Subject, Subscription } from 'rxjs';
+import { interval, map, Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { ChartService } from '../../../core/services/chart/chart.service';
 import { Ichart } from '../../../shared/interfaces/ichart/ichart';
 
@@ -32,23 +32,25 @@ export class ChartComponent {
     name: 'customScheme'
   };
 
-  private supscription: Subscription;
+ 
+
+  private destroy$ = new Subject<void>();
+
+  //...
 
   constructor(private _Charts: ChartService) {
-     
-       this._Charts.createWebsocket();  
-       this.supscription = this._Charts.storeLastValue().subscribe(res => {
-        console.log(res);
-         this.data=res;
+    this._Charts.createWebsocket();
+    this._Charts.storeLastValue()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(res => {
+        this.data = res;
       });
-      }
-      
-      ngOnDestroy() {
-        // Unsubscribe when the component is destroyed to avoid memory leaks
-        if (this.supscription) {
-          this.supscription.unsubscribe();
-        }
-      }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
     
 
 

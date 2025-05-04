@@ -8,11 +8,15 @@ import { Ichart } from '../../../shared/interfaces/ichart/ichart';
 export class ChartService {
   private  obsInterval:Observable<any> = interval(5000);
   public  subject = new Subject<Ichart[]>();
+  private initialized = false;
 
 
   constructor(private ngZone:NgZone) { }
 
 createWebsocket(){
+  
+  if (this.initialized) return;
+  this.initialized = true;
   const pages = ['home', 'users', 'notifications'];
 
  this.ngZone.runOutsideAngular(()=>{
@@ -44,7 +48,8 @@ createWebsocket(){
 storeLastValue():Observable<any>{
 
  return this.subject.pipe(
-    shareReplay(1,120000)
+  shareReplay({ bufferSize: 1, refCount: true, windowTime: 120000 })
+
   )
 }
 }

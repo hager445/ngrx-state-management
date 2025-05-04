@@ -4,7 +4,7 @@ import { Inotify } from '../../../shared/interfaces/inotify/inotify';
 import { noop, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { OutsideclickdirectiveDirective } from '../../../shared/directives/outsideclickdirective/outsideclickdirective.directive';
-import { log } from 'node:console';
+
 
 @Component({
   selector: 'app-toast-container',
@@ -20,12 +20,13 @@ export class ToastContainerComponent {
   notifications=signal<Inotify[]>([]);
   timer:any = null;
   private subscription! : Subscription;
+  private destroyEffect!: any
   constructor(private _NotificationsService:NotificationsService){
     
     this._NotificationsService.startNotifications();
     this.startNotifi()
     
-    effect(() => {
+    this.destroyEffect =  effect(() => {
     
         if (this.notifications().length > 5 && !this.timer && this.select() === false) {
           this.autoDelete(this.notifications()[0].duration)
@@ -42,9 +43,9 @@ export class ToastContainerComponent {
     })
   }
   // ================ handle selection state :
-  chageSelectionState(){
+  chageSelectionState(e:Event){
    
-    
+    e.stopPropagation();
     this.select.update(value=> !value);
   }
   onCheckboxChange(event:Event,notifi:Inotify){
@@ -85,6 +86,8 @@ ngOnDestroy(): void {
 
 this.subscription.unsubscribe();
 this.stopInterval();
+this.destroyEffect.destroy(); // ❗ تفصل الـ effect
+
 }
 stopInterval(){
   clearInterval(this.timer);
@@ -96,6 +99,8 @@ this.notifications.update((prev) => prev.filter((_, i) => i !== index));
 }
 clearAll(){
   this.notifications.set([]);
+  this.select.set(false); 
+
 }
 
 

@@ -1,5 +1,5 @@
+@if (formRole === 'register') {
 <section
-  appFormModal
   class="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.7)] z-50"
 >
   <div
@@ -13,36 +13,14 @@
         class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200"
       >
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-          {{ !isUpdateMode ? "Create New User!" : "Update User!" }}
+          Create New User!
         </h3>
-        <button
-          (click)="closeModal()"
-          type="button"
-          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-        >
-          <svg
-            class="w-3 h-3"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 14"
-          >
-            <path
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-            />
-          </svg>
-          <span class="sr-only">Close modal</span>
-        </button>
       </div>
       <!-- Modal body -->
       <form
         [formGroup]="formG"
         class="p-4 md:p-5"
-        (ngSubmit)="registerSubmition()"
+        (ngSubmit)="submitForm('add')"
       >
         <div class="grid gap-4 mb-4 grid-cols-2">
           <div class="col-span-2">
@@ -226,49 +204,39 @@
             }
           </div>
         </div>
-        @if (!isUpdateMode) {
-
-        <button
-          type="submit"
-          [disabled]="formG.invalid"
-          class="text-white inline-flex items-center dark:bg-gray-800 dark:hover:bg-gray-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        >
-          <svg
-            class="me-1 -ms-1 w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
+        <div class="flex justify-between items-center">
+          <button
+            type="submit"
+            [disabled]="formG.invalid"
+            class="text-white inline-flex items-center dark:bg-gray-800 dark:hover:bg-gray-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
           >
-            <path
-              fill-rule="evenodd"
-              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          Add new User!
-        </button>
-        }@else {
+            <svg
+              class="me-1 -ms-1 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            Add new User!
+          </button>
 
-        <button
-          type="button"
-          (click)="updateUserForm()"
-          class="text-white inline-flex items-center dark:bg-amber-500 dark:hover:bg-yellow-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-        >
-          <svg
-            class="me-1 -ms-1 w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          Update User
-        </button>
-        } @if (messageError) {
+          <span class="block text-center mt-4">
+            <a
+              (click)="resetAll()"
+              routerLink="/login"
+              class="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 cursor-pointer text-[14px]"
+            >
+              ← Back to Login
+            </a>
+          </span>
+        </div>
+
+        @if (messageError) {
         <div>
           <p class="mt-2 text-xs text-red-600 dark:text-red-400">
             <span class="font-medium">{{ messageError }}</span>
@@ -279,3 +247,293 @@
     </div>
   </div>
 </section>
+} @else {
+<section
+  appFormModal
+  class="fixed inset-0 flex items-center justify-center bg-[rgba(0,0,0,0.7)] z-50"
+  [id]="formRole"
+>
+  <div
+    class="min-w-2xl mx-auto mt-0 p-6 rounded-2xl border border-gray-700 bg-gray-800 shadow-lg shadow-gray-900/50"
+  >
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+      <!-- Modal content -->
+
+      <!-- Modal header -->
+      <div
+        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200"
+      >
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          {{ !isUpdateMode ? "Create New User!" : "Update User!" }}
+        </h3>
+
+        <button
+          (click)="closeModal()"
+          type="button"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+            />
+          </svg>
+          <span class="sr-only">Close modal</span>
+        </button>
+      </div>
+      <!-- Modal body -->
+      <form
+        [formGroup]="formG"
+        class="p-4 md:p-5"
+        (ngSubmit)="submitForm('add')"
+      >
+        <div class="grid gap-4 mb-4 grid-cols-2">
+          <div class="col-span-2">
+            @let name =formG.get('name');
+            <label
+              for="name"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Name</label
+            >
+            <input
+              formControlName="name"
+              type="text"
+              name="name"
+              id="name"
+              class="bg-gray-50 border focus:ring-0 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Type user name"
+            />
+            @if (name?.touched && name?.invalid) { @if
+            (name?.errors?.['required']) {
+
+            <div>
+              <div class="relative">
+                <p
+                  id="filled_error_help"
+                  class="mt-2 text-xs text-red-600 dark:text-red-400"
+                >
+                  <span class="font-medium">Oh, snapp!</span> This Field is
+                  required.
+                </p>
+              </div>
+            </div>
+            } @else if (name?.errors?.['minlength']) {
+
+            <div>
+              <div class="relative">
+                <p
+                  id="filled_error_help"
+                  class="mt-2 text-xs text-red-600 dark:text-red-400"
+                >
+                  <span class="font-medium">Oh, snapp!</span> This Field is
+                  needed to be more than 3 chars.
+                </p>
+              </div>
+            </div>
+
+            } }
+          </div>
+          <!-- ======================================================== -->
+          <div class="relative max-w-sm">
+            <label
+              for="date"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Created At</label
+            >
+            <input
+              name="createdAt"
+              formControlName="createdAt"
+              type="date"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Select date"
+            />
+          </div>
+          <!-- ============================== email -->
+          <div class="col-span-2">
+            @let email = formG.get('email');
+            <label
+              for="email"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Email</label
+            >
+            <input
+              formControlName="email"
+              type="email"
+              name="email"
+              id="email"
+              class="bg-gray-50 border focus:ring-0 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Type user email"
+            />
+            @if (email?.touched && email?.invalid) {
+            <div>
+              @if (email?.errors?.['required']) {
+              <div>
+                <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                  <span class="font-medium">Oh, snapp!</span> This field is
+                  required.
+                </p>
+              </div>
+              } @else if (email?.errors?.['pattern']) {
+              <div>
+                <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                  <span class="font-medium">Oh, snapp!</span> Invalid email
+                  format.
+                </p>
+              </div>
+              } @else if (email?.errors?.['existEmail']) {
+              <div>
+                <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                  <span class="font-medium">Oh, snapp!</span> This Email has
+                  been already taken!.
+                </p>
+              </div>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- ================================== password -->
+          <div class="col-span-2">
+            @let password = formG.get('password');
+
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Password</label
+            >
+            <input
+              formControlName="password"
+              type="password"
+              name="password"
+              id="password"
+              class="bg-gray-50 border focus:ring-0 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Type user password"
+            />
+            @if (password?.touched && password?.invalid) {
+            <div>
+              @if (password?.errors?.['required']) {
+              <div>
+                <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                  <span class="font-medium">Oh, snapp!</span> This field is
+                  required.
+                </p>
+              </div>
+              } @if (password?.errors?.['weakPassword']) {
+              <div>
+                <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                  <span class="font-medium">Oh, snapp!</span> Password must
+                  contain at least 8 characters, including uppercase, lowercase,
+                  and special characters.
+                </p>
+              </div>
+              }
+            </div>
+
+            }
+          </div>
+          <!-- ======================================role -->
+          <div class="col-span-2 sm:col-span-1">
+            @let role = formG.get('role');
+
+            <label
+              for="role"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >Position</label
+            >
+            <select
+              id="role"
+              formControlName="role"
+              class="bg-gray-50 border focus:ring-0 border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+            >
+              select
+              <option value="select a role" disabled selected>
+                select a role
+              </option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
+            </select>
+            @if (role?.touched && role?.invalid) {
+
+            <div>
+              @if (role?.errors?.['required']) {
+
+              <div>
+                <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+                  <span class="font-medium">Oh, snapp!</span> This field is
+                  required.
+                </p>
+              </div>
+              }
+            </div>
+
+            }
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          @if (!isUpdateMode) {
+
+          <button
+            type="submit"
+            [disabled]="formG.invalid"
+            class="text-white inline-flex items-center dark:bg-gray-800 dark:hover:bg-gray-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            <svg
+              class="me-1 -ms-1 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            Add new User!
+          </button>
+          }@else {
+
+          <button
+            type="button"
+            (click)="submitForm('update')"
+            [disabled]="formG.invalid"
+            class="text-white inline-flex items-center dark:bg-amber-500 dark:hover:bg-yellow-900 cursor-pointer focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            <svg
+              class="me-1 -ms-1 w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+            Update User!
+          </button>
+          }
+        </div>
+
+        @if (messageError) {
+        <div>
+          <p class="mt-2 text-xs text-red-600 dark:text-red-400">
+            <span class="font-medium">{{ messageError }}</span>
+          </p>
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+</section>
+}

@@ -5,7 +5,8 @@ declare var flowbite: any;
   providedIn: 'root'
 })
 export class ModalService {
- modalIsActive= signal<boolean>(false)
+ modalIsActive= signal<boolean>(false);
+ activateModalAfterRegister = signal<boolean>(false);
   
   constructor() {}
   

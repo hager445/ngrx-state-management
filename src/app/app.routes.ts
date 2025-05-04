@@ -22,12 +22,12 @@ path:'',
 loadComponent:()=> import('./layouts/authantication/authantication.component').then(c=>c.AuthanticationComponent)
 , children:[{
   path: 'login',
-  loadComponent: () => import('./layouts/auth/auth.component').then(c => c.AuthComponent),
+  loadComponent: () => import('./features/login/auth.component').then(c => c.AuthComponent),
 
 },
 {
   path: 'register',
-  loadComponent: () => import('./features/users/users-form/users-form.component').then(c => c.UsersFormComponent),
+  loadComponent: () => import('./features/register/register.component').then(c => c.RegisterComponent),
 
 },
 ]

@@ -30,7 +30,7 @@ export class UsersListComponent {
   
   // handle filter: 
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
-  
+  isAdmine:boolean = false;
   searchValue:string='';
   // =========== handle Update Inputs:
   setUpdateMode:boolean = false;
@@ -48,6 +48,7 @@ export class UsersListComponent {
 ngAfterViewInit(): void {
   this.store.dispatch(loadUsers())
   this.showUpUsers()
+  this.setIfAdmine()
   }
   
   // load users & filter:
@@ -117,6 +118,19 @@ redirctToCreateUser(){
   this._Router.navigate(['/users/create'])
 }
 //  ===================
+// guard role
+setIfAdmine(){
+  const userObj = localStorage.getItem('userToken')!;
+  if (JSON.parse(userObj).role == 'admin') {
+    this.isAdmine = true;
+  }else{
+    
+    this.isAdmine = false;
+  }
+  console.log('admin',this.isAdmine);
+  
+}
+// =======================
 ngOnDestroy(): void {
   if (this.searchSubscription) {
     

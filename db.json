@@ -1,12 +1,36 @@
 {
   "users": [
     {
-      "name": "samer mohamed",
+      "name": "hager mostafa ",
+      "email": "soha1234@gmail.com",
+      "password": "Hagora@1234",
+      "role": "admin",
+      "createdAt": "2025-05-13",
+      "id": "4c9e"
+    },
+    {
+      "name": "ahmed mostafa",
       "email": "ho44477@gmail.com",
       "password": "Hagora@123",
+      "role": "admin",
+      "createdAt": "2025-05-01",
+      "id": "371f"
+    },
+    {
+      "id": "ad7b",
+      "name": "hager mostafa",
+      "email": "soha12434@gmail.com",
+      "password": "Hagora@1234",
       "role": "user",
-      "createdAt": "2025-05-13",
-      "id": "de2b"
+      "createdAt": "2025-05-13"
+    },
+    {
+      "id": "106b",
+      "name": "sara",
+      "email": "soha124346@gmail.com",
+      "password": "Hagora@1234",
+      "role": "user",
+      "createdAt": "2025-05-08"
     }
   ],
   "notifications": [

@@ -12,13 +12,14 @@ import { Store, StoreModule } from '@ngrx/store';
 import { UsersListComponent } from './features/users/users-list/users-list.component';
 import { DashboardShellComponent } from './features/dashboard/dashboard-shell/dashboard-shell.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthComponent } from "./layouts/auth/auth.component";
+import { AuthComponent } from "./features/login/auth.component";
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { ToastrModule } from 'ngx-toastr';
 // import { AuthComponent_1 as AuthComponent } from "./layouts/auth/auth.component";
 
 @Component({
   selector: 'app-root',
-  imports: [ScrollingModule, RouterOutlet, RouterLink,MainLayoutComponent, AuthComponent],
+  imports: [ScrollingModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

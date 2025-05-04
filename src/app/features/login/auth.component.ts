@@ -5,6 +5,7 @@ import { error, log } from 'console';
 import { Iuser } from '../../shared/interfaces/iusers/iusers';
 import { StorageService } from '../../core/services/storage/storage.service';
 import { Router, RouterLink } from '@angular/router';
+import { ModalService } from '../../core/services/modal/modal.service';
 // import { Router } from 'express';
 
 @Component({
@@ -17,7 +18,7 @@ export class AuthComponent {
   userToken:Iuser={}as Iuser;
   messageError:string|null=null;
   loginUser!:FormGroup;
-  constructor(private fb:FormBuilder , private _Router:Router, private _AuthService:AuthService, private _Storage:StorageService){
+  constructor(private fb:FormBuilder , private _Router:Router, private _AuthService:AuthService, private _Storage:StorageService, private _ModalService:ModalService){
 
     this.loginUser = this.fb.group({  
       email:[null,Validators.required,Validators.email],
@@ -28,11 +29,20 @@ export class AuthComponent {
     this._AuthService.checkUserExistance(this.loginUser.get('email')?.value,this.loginUser.get('password')?.value).subscribe({
       next:(res)=>{
        this._Storage.saveUser(res);
+          //  this._ModalService.activateModalAfterRegister.set(true);
         this._Router.navigate(['dashboard'])
       },
       error:(error)=>{
         this.messageError = error;
+            // this._ModalService.activateModalAfterRegister.set(false);
       }
     })
+ 
   }
+  // ==============
+  // acivateModal(){
+  //   if (localStorage.getItem('userToken')) {
+  //   }else{
+  //   }
+  // }
 }
